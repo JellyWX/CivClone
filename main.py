@@ -21,7 +21,7 @@ mouse_presses = (0, 0, 0)
 
 title = TitleScreen(gui, images)
 
-render_sequence = [title]
+gui.render_sequence = [title]
 
 while not done:
   for e in gui.event():
@@ -29,11 +29,11 @@ while not done:
       done = True
       break
     if e.type == pygame.KEYUP:
-      for i in render_sequence:
+      for i in gui.render_sequence:
         i.key_hit(keys)
 
     if e.type == pygame.VIDEORESIZE:
-      gui.resize(e.dict['size'][0],e.dict['size'][1])
+      gui.resize(e.dict['size'][0], e.dict['size'][1])
 
   keys = gui.keysDown()
 
@@ -50,16 +50,16 @@ while not done:
         action = 'mouse{}'.format(button), 'up'
 
     mouse_presses = gui.mouseAction()
-    for i in render_sequence:
+    for i in gui.render_sequence:
       i.click(action)
 
-  for i in render_sequence:
+  for i in gui.render_sequence:
     i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
 
-  for i in render_sequence:
+  for i in gui.render_sequence:
     i.render()
 
   gui.flip(120)

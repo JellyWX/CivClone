@@ -55,8 +55,8 @@ class GUI(object):
     else:
       return pygame.key.get_pressed()
 
-  def Image(self,im,size_x,size_y,x,y):
-    im = pygame.transform.scale(im,(size_x,size_y))
+  def Image(self, im, x, y, size_x, size_y):
+    im = pygame.transform.scale(im, (size_x,size_y))
     self.page.blit(im,(x,y))
 
   def mouseAction(self,k=None):
