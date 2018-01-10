@@ -1,6 +1,7 @@
 import sys
 from title import Title
 import pygame
+import random
 
 class TitleScreen(Title):
 
@@ -58,7 +59,30 @@ class GameOverlay(Title):
     self.gui.Color('FFFFFF')
     self.gui.showText(0, 0)
 
-    self.gui.Image(pygame.transform.rotate(self.images[self.img], 45), 20, 20, 120, 80)
+    current_tile = 0
+    current_row = 0
+    invert = -1
+
+    tw = 120
+    th = 80
+
+    for i in range(5):
+      for j in range(5):
+        self.gui.Image(
+          pygame.transform.rotate(
+            self.images[self.img],
+            45
+          ),
+          20 + current_tile * tw + (tw / 4 * invert),
+          20 + current_row * th/2,
+          tw,
+          th)
+
+        current_tile += 1
+
+      invert *= -1
+      current_row += 1
+      current_tile = 0
 
 
 class Reset(Title):
