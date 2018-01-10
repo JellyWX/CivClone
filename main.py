@@ -17,13 +17,15 @@ for f in os.listdir('assets/images'):
     images[f[0:-4]] = pygame.image.load('assets/images/' + f)
 
 keys = []
-mouse_presses = (0, 0, 0)
+mouse_presses = [0, 0, 0, 0, 0]
 
 title = TitleScreen(gui, images)
 
 gui.render_sequence = [title]
 
 while not done:
+  gui.scroll = [0, 0]
+
   for e in gui.event():
     if e.type == pygame.QUIT:
       done = True
@@ -35,12 +37,18 @@ while not done:
     if e.type == pygame.VIDEORESIZE:
       gui.resize(e.dict['size'][0], e.dict['size'][1])
 
+    if e.type == pygame.MOUSEBUTTONDOWN:
+      if e.button == 4:
+        gui.scroll = [1, 0]
+      if e.button == 5:
+        gui.scroll = [0, 1]
+
   keys = gui.keysDown()
 
   do(gui)
 
   if gui.mouseAction() != mouse_presses:
-    for button in range(3):
+    for button in range(5):
       if gui.mouseAction()[button]:
         if mouse_presses[button]:
           continue

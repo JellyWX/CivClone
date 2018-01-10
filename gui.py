@@ -17,6 +17,8 @@ class GUI(object):
 
     self.f = None
 
+    self.scroll = [0, 0]
+
   def resize(self,w,h):
     self.page = self.display.set_mode((w,h),pygame.RESIZABLE)
     self.width = w
@@ -60,7 +62,9 @@ class GUI(object):
     self.page.blit(im,(x,y))
 
   def mouseAction(self,k=None):
+    keys = list(pygame.mouse.get_pressed())
+    keys.extend(self.scroll)
     if k != None:
-      return pygame.mouse.get_pressed()[k]
+      return keys[k]
     else:
-      return pygame.mouse.get_pressed()
+      return keys

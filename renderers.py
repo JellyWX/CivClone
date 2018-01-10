@@ -61,7 +61,7 @@ class GameOverlay(Title):
 
     current_tile = 0
     current_row = 0
-    invert = 1
+    invert = 0
 
     tw = 120
     th = 80
@@ -73,14 +73,14 @@ class GameOverlay(Title):
             self.images[self.img],
             45
           ),
-          current_tile * tw + (tw / 4 * invert),
+          current_tile * tw + (tw/2 * (invert % 2)),
           current_row * th/2,
           tw,
           th)
 
         current_tile += 1
 
-      invert *= -1
+      invert += 1
       current_row += 1
       current_tile = 0
 
