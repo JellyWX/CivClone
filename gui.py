@@ -39,7 +39,15 @@ class GUI(object):
     pygame.draw.rect(self.page, self.color, pygame.Rect(x,y,w,h))
 
   def Circle(self,x,y,r):
+    x, y = map(int, (x, y))
     pygame.draw.circle(self.page, self.color, (x,y), r)
+
+  def Line(self, start, end, anti=False, width=2):
+    width = int(width)
+    if anti:
+      pygame.draw.aaline(self.page, self.color, start, end)
+    else:
+      pygame.draw.line(self.page, self.color, start, end, width)
 
   def showText(self,x,y):
     self.page.blit(self.f, (x,y))
@@ -58,8 +66,9 @@ class GUI(object):
       return pygame.key.get_pressed()
 
   def Image(self, im, x, y, size_x, size_y):
-    im = pygame.transform.scale(im, (size_x,size_y))
-    self.page.blit(im,(x,y))
+    size_x, size_y = map(int, (size_x, size_y))
+    im = pygame.transform.scale(im, (size_x, size_y))
+    self.page.blit(im, (x, y))
 
   def mouseAction(self,k=None):
     keys = list(pygame.mouse.get_pressed())

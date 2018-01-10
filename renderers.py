@@ -49,9 +49,13 @@ class GameOverlay(Title):
 
   def post_init(self, img):
     self.img = img
+    self.scale = 1
 
-  def click(self, action):
-    pass
+  def scroll(self, direction):
+    if direction == 'up' and self.scale > 0.06:
+      self.scale -= 0.04
+    elif direction == 'down':
+      self.scale += 0.04
 
   def render(self):
     # process rendering here
@@ -63,8 +67,13 @@ class GameOverlay(Title):
     current_row = 0
     invert = 0
 
-    tw = 120
-    th = 80
+    tw = 120 * self.scale
+    th = 80 * self.scale
+
+    outline = 2 * self.scale
+
+    if outline < 1:
+      outline = 1
 
     for i in range(5):
       for j in range(5):
@@ -77,6 +86,28 @@ class GameOverlay(Title):
           current_row * th/2,
           tw,
           th)
+
+        self.gui.Color('11AAFF')
+        self.gui.Line(
+          [current_tile * tw + (tw/2 * (invert % 2)) + tw/2, current_row * th/2],
+          [(current_tile + 1) * tw + (tw/2 * (invert % 2)), (current_row + 1) * th/2],
+          width=outline
+        )
+        self.gui.Line(
+          [(current_tile + 1) * tw + (tw/2 * (invert % 2)), (current_row + 1) * th/2],
+          [current_tile * tw + (tw/2 * (invert % 2)) + tw/2, (current_row + 2) * th/2],
+          width=outline
+        )
+        self.gui.Line(
+          [current_tile * tw + (tw/2 * (invert % 2)) + tw/2, (current_row + 2) * th/2],
+          [current_tile * tw + (tw/2 * (invert % 2)), (current_row + 1) * th/2],
+          width=outline
+        )
+        self.gui.Line(
+          [current_tile * tw + (tw/2 * (invert % 2)), (current_row + 1) * th/2],
+          [current_tile * tw + (tw/2 * (invert % 2)) + tw/2, current_row * th/2],
+          width=outline
+        )
 
         current_tile += 1
 

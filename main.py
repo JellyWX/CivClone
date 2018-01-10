@@ -37,11 +37,18 @@ while not done:
     if e.type == pygame.VIDEORESIZE:
       gui.resize(e.dict['size'][0], e.dict['size'][1])
 
-    if e.type == pygame.MOUSEBUTTONDOWN:
+    if e.type == pygame.MOUSEBUTTONDOWN: # for identifying scroll events
       if e.button == 4:
         gui.scroll = [1, 0]
+
+        for i in gui.render_sequence:
+          i.scroll('down')
+
       if e.button == 5:
         gui.scroll = [0, 1]
+
+        for i in gui.render_sequence:
+          i.scroll('up')
 
   keys = gui.keysDown()
 

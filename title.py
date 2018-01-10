@@ -22,5 +22,8 @@ class Title():
   def click(self, action):
     pass
 
+  def scroll(self, direction):
+    pass
+
   def render(self):
     pass
