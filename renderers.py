@@ -1,12 +1,13 @@
 import sys
 from title import Title
+import pygame
 
 class TitleScreen(Title):
-  
+
   def click(self, action):
     if action == ('mouse0', 'down'):
       if 40 < self.cursor_x < 140 and 65 < self.cursor_y < 90: # START button
-        self.gui.render_sequence = [GameOverlay(self.gui, self.images, 'grass')]
+        self.gui.render_sequence = [Reset(self.gui, self.images), GameOverlay(self.gui, self.images, 'grass')]
 
       if 40 < self.cursor_x < 140 and 100 < self.cursor_y < 125: # EXIT button
         sys.exit()
@@ -42,7 +43,9 @@ class TitleScreen(Title):
     self.gui.showText(62, 100)
     # END #
 
+
 class GameOverlay(Title):
+
   def post_init(self, img):
     self.img = img
 
@@ -53,7 +56,13 @@ class GameOverlay(Title):
     # process rendering here
 
     self.gui.Color('FFFFFF')
-    self.gui.Text('Civ Clone', 48)
     self.gui.showText(0, 0)
 
-    self.gui.Image(self.images[self.img], 20, 20, 120, 120)
+    self.gui.Image(pygame.transform.rotate(self.images[self.img], 45), 20, 20, 120, 80)
+
+
+class Reset(Title):
+
+  def render(self):
+    self.gui.Color('000000')
+    self.gui.Rect(0, 0, self.gui.width, self.gui.height)
