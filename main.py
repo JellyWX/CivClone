@@ -54,7 +54,7 @@ while not done:
       i.click(action)
 
   for i in gui.render_sequence:
-    i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+    i.setCursorPos(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
