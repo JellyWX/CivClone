@@ -1,7 +1,6 @@
 import sys
 from title import Title
 import pygame
-import random
 from map import Map
 
 class TitleScreen(Title):
@@ -59,7 +58,10 @@ class DebugOut(Title):
 
     for c in range(len(self.content)):
       if c > 15:
-        self.content.pop(c)
+        try:
+          self.content.pop(c)
+        except:
+          pass
         continue
 
 

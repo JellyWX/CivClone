@@ -14,6 +14,7 @@ class GUI(object):
     self.display = pygame.display
     self.page = self.display.set_mode((self.width,self.height),pygame.RESIZABLE)
     self.display.set_caption(self.title)
+    self.debug = False
 
     self.f = None
 
@@ -65,10 +66,15 @@ class GUI(object):
     else:
       return pygame.key.get_pressed()
 
-  def Image(self, im, x, y, size_x, size_y):
-    size_x, size_y = map(int, (size_x, size_y))
-    im = pygame.transform.scale(im, (size_x, size_y))
-    self.page.blit(im, (x, y))
+  def Image(self, im, x, y, size_x, size_y, crop=False):
+    if crop:
+      size_x, size_y = map(int, (size_x, size_y))
+      im = pygame.transform.scale(im, (size_x, size_y))
+      self.page.blit(im, (x, y), crop)
+    else:
+      size_x, size_y = map(int, (size_x, size_y))
+      im = pygame.transform.scale(im, (size_x, size_y))
+      self.page.blit(im, (x, y))
 
   def mouseAction(self,k=None):
     keys = list(pygame.mouse.get_pressed())

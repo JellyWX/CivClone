@@ -3,7 +3,6 @@ import os
 import time
 import random
 
-from do import do
 from gui import GUI
 
 from renderers import *
@@ -55,8 +54,6 @@ while not done:
 
   keys = gui.keysDown()
 
-  do(gui)
-
   if gui.mouseAction() != mouse_presses:
     for button in range(5):
       if gui.mouseAction()[button]:
@@ -80,6 +77,7 @@ while not done:
   for i in gui.render_sequence:
     i.render()
 
-  gui.debug.render()
+  if gui.debug:
+    gui.debug.render() # draws the debug screen at maximum priority
 
   gui.flip(120)

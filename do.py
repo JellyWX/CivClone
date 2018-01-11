@@ -1,2 +1,0 @@
-def do(gui):
-  pass
