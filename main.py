@@ -11,17 +11,17 @@ gui = GUI(500,500,'CivClone')
 done = False
 images = {}
 
-for f in os.listdir('assets/images'):
-  if f[-4:] == '.png':
-    print('Loading asset ' + f)
-    images[f[0:-4]] = pygame.image.load('assets/images/' + f)
-
 keys = []
 mouse_presses = [0, 0, 0, 0, 0]
 
 title = TitleScreen(gui, images)
 
-gui.render_sequence = [title]
+gui.render_sequence = [DebugOut(gui, images), title]
+
+for f in os.listdir('assets/images'):
+  if f[-4:] == '.png':
+    gui.debug.put('Loading asset ' + f)
+    images[f[0:-4]] = pygame.image.load('assets/images/' + f)
 
 while not done:
   gui.scroll = [0, 0]
