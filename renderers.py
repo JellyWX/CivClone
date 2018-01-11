@@ -49,7 +49,6 @@ class TitleScreen(Title):
 class DebugOut(Title):
 
   def post_init(self):
-    self.gui.debug = self
     self.content = ['debug mode enabled']
 
   def put(self, msg):
@@ -57,14 +56,17 @@ class DebugOut(Title):
     print(msg)
 
   def render(self):
-    self.gui.Color('FFFFFF')
-    self.put(random.randint(0,1000))
 
     for c in range(len(self.content)):
       if c > 15:
         self.content.pop(c)
         continue
 
+
+      self.gui.Color('000000')
+      self.gui.Rect(0, self.gui.height - (12 * (c + 1)), self.gui.width, 12)
+
+      self.gui.Color('FFFFFF')
       self.gui.Text(self.content[c], 12)
       self.gui.showText(0, self.gui.height - (12 * (c + 1)))
 

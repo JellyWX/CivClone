@@ -1,6 +1,7 @@
 import pygame
 import os
 import time
+import random
 
 from do import do
 from gui import GUI
@@ -11,12 +12,14 @@ gui = GUI(500,500,'CivClone')
 done = False
 images = {}
 
+gui.debug = DebugOut(gui, images) #set the debug location, in this case a bottom screen console and stdout. this takes priority rendering
+
 keys = []
 mouse_presses = [0, 0, 0, 0, 0]
 
 title = TitleScreen(gui, images)
 
-gui.render_sequence = [DebugOut(gui, images), title]
+gui.render_sequence = [title]
 
 for f in os.listdir('assets/images'):
   if f[-4:] == '.png':
@@ -76,5 +79,7 @@ while not done:
 
   for i in gui.render_sequence:
     i.render()
+
+  gui.debug.render()
 
   gui.flip(120)
